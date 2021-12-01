@@ -2,7 +2,7 @@
   "name": "web-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://marvenlee2486.github.io/marvenlee2486.github.io",
+  "homepage": "https://marvenlee2486.github.io/web-app",
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.14.1",
