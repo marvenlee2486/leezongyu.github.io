@@ -1,11 +1,13 @@
 import React from 'react'
 import { Container, Grid, Box, Button, Typography} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-import {makeStyles} from '@material-ui/core/styles'
+import {styled , makeStyles} from '@material-ui/core/styles'
 import {useHistory} from 'react-router';
 import routes from '../../constants/routes';
+import { ClassNameMap, Styles, WithStylesOptions } from '@material-ui/styles/withStyles';
 
 
+var _classes :ClassNameMap;
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(3),
@@ -29,62 +31,57 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
     },
   }));
-/*
-const addRow = (paper: makeStyles ) =>{
-    
 
-    <Grid container spacing ={2}>
-        <Grid item xs={1} sm={1} md={1} lg={1}>
-    
-            <Paper className={paper}>
-                About Me
-            </Paper>
-            
-        </Grid>
-        <Grid item xs={11} sm={11} md={11} lg={11} >
-    
-            <Paper className={paper}>
-                About Me Text (Write About my education)
-            </Paper>
-            
-        </Grid>
-
-
-    </Grid>
+interface prop{
+    text?:string   
+    childComp?: React.ReactNode[];
 }
-*/
+
+const AddCell: React.FC<prop> = ({text}) =>{
+    return(
+        <Grid item xs={1} sm={1} md={1} lg={1} >
+            <Paper className={_classes.paper}>
+                
+                <Typography variant="body1">
+                    {text}
+                    </Typography>
+            </Paper>
+        </Grid>
+    )
+}
+
+const AddRow : React.FC<prop> = ({childComp}) =>{
+   
+
+{/* <Grid item xs={1} sm={1} md={1} lg={1}>
+    
+<Paper className={_classes.paper}>
+    <Typography variant="h5" align="center" color="primary" component="h2">  {text} </Typography>
+</Paper>
+
+</Grid> */}
+    return(
+    <Grid container spacing ={2}>
+        {childComp}
+
+    </Grid>)
+}
+
 
 const HomePage = () => {
     const classes = useStyles();
     const history = useHistory();
-    
+    _classes = classes;
     const onClickHandler = ()=>{
         history.push(routes.HOME);
     }
 
+    const text: string = "Lee Zong Yu. From Computer Science Year 2."
+    const component: React.ReactNode[] = [<AddCell text= {text} />, <AddCell text={"About Me"} />]
+
     return (
     <>
-    
-    <Grid container spacing ={2}>
-        <Grid item xs={1} sm={1} md={1} lg={1}>
-    
-            <Paper className={classes.paper}>
-            <Typography variant="h5" align="center" color="primary" component="h2">  About Me</Typography>
-            </Paper>
-            
-        </Grid>
-        <Grid item xs={11} sm={11} md={11} lg={11} >
-    
-            <Paper className={classes.paper}>
-                <Typography variant="body1">
-                I am Lee Zong Yu. Currently purseing degree of Computer Science Year 2 in Nanyang Technological University. My interest is in Data Science and Artificial Intelligent. Besides, I am very aspired in Competitive Programming as well. 
-                </Typography>
-            </Paper>
-            
-        </Grid>
-
-
-    </Grid>
+    <AddRow childComp = {component} />
     
     </>  
     )
